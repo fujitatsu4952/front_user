@@ -192,12 +192,16 @@ export default {
     callApi("http://localhost:3004/api/v1/").then(data => {
       console.log(JSON.stringify(data.data));
     });
-    console.log(window.location.href);
-    window.location.href.split("?")[1].split("&");
-    console.log(window.location.href.split("?")[1].split("&"));
+    var url = window.location.href;
+    console.log(url);
+    var decode1 = decodeURI(url);
+    console.log(decode1);
+    console.log(decode1);
+    decode1.split("?")[1].split("&");
+    console.log(decode1.split("?")[1].split("&"));
     const map = {};
     console.log(map);
-    window.location.href
+    decode1
       .split("?")[1]
       .split("&")
       .forEach((autoform) => {
