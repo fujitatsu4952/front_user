@@ -1,70 +1,51 @@
 <template>
   <div>
-    <myheader></myheader>
+    <h2>Check in form</h2>
+    <div>
+      <p>name</p>
+      <textarea class="area1" v-model="urlname.q">  </textarea>
+    </div>
+    <div class ="menu2">
+      <p>tell</p>
+      <textarea class="area2" v-model="urlname.oq"/>
+    </div>
+      <div class="country">
+    <p>country</p>
     <country v-model="country" />
-    <!-- <p>国籍</p>
-      <div>
-        <input type="text" v-model="country" />
-    </div>-->
-    <p>性別:</p>
-    <div>
-      <select v-model="selected">
-        <option></option>
-        <option>男性</option>
-        <option>女性</option>
-        <option>その他</option>
-        <option>回答しない</option>
-      </select>
+      </div>
+    <div class="container">
+      <div class="menu">
+    <p>sex</p>
+    <sex v-model="selected" />
+      </div>
+      <div class="menu">
+    <p>age</p>
+      <agea v-model="age" />
+      </div>
     </div>
-
-    <!-- <p>年齢:</p>
-      <div>
-        <input type="date" v-model="dated" />
-    </div>-->
-    <agea v-model="age" />
+    <div class="container"> 
+      <div class="menu1">
+      <p>your work </p>
+        <work v-model="work"/>
+      </div>
+      <div class="menu1">
+      <p>type of industry</p>
+        <work1 v-model="work1"/>
+      </div>
     
-    <p>住所:</p>
-    <div>
-      <input type="text" value="〒" />
-    </div>
-    <div>
-      <textarea v-on:mouseover="mouseover" v-model="address" rows="4" cols="40"></textarea>
     </div>
 
-    <p>職業:</p>
+    <p>address</p>
     <div>
-      <input type="text" v-model="work" />
-    </div>
-    <p>電話番号:</p>
-    <div>
-      <input type="tel" v-model="urlname.oq" />
-    </div>
-
-    <p>宿泊人数:</p>
-    <div>
-      <select name="人数" v-model="people">
-        <option></option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
-        <option>8</option>
-      </select>
+      <textarea class="area1" v-on:mouseover="mouseover" v-model="address" rows="4" cols="40"></textarea>
     </div>
     
-    <p>署名</p>
-    <div>
-      <textarea v-model="urlname.q">  </textarea>
-    </div>
 <!-- v-ifをつけているのはurlnameのなかを非同期で取りに行っているため、ない場合があるから。もし入っているのであれば挿入されるということを条件づけている。 -->
     <br/>
-
-    <button @click="completeCheck">complete</button>
-
-    <button @click="autoscroll">move</button>
+  
+    <button class="btn-square-shadow button_position" @click="completeCheck">complete</button>
+    <button class="btn-square-shadow button_position" @click="automove">move</button>
+    
     <br/>
     <br/>
     <br/>
@@ -106,7 +87,7 @@
     
 
     <div>
-      <p>Q1,何を目的に来ましたか</p>
+      <p id="element">Q1,何を目的に来ましたか</p>
       <select>
         <option>観光</option>
         <option>ビジネス</option>
@@ -120,16 +101,20 @@
 
 <script>
 import { callApi, post } from "./Api.js";
-import myheader from "./components/myheader";
 import country from "./Country";
 import agea from "./Age";
+import sex from "./Sex";
+import work from "./work";
+import work1 from "./work1";
 
 export default {
   name: "Component",
   components: {
-    myheader,
     country,
-    agea
+    agea,
+    sex,
+    work,
+    work1
   },
   data() {
     return {
@@ -139,6 +124,7 @@ export default {
       selected: "",
       address: "都道府県から記述してください",
       work: "",
+      work1:"",
       tell: "",
       people: "",
       name:"",
@@ -168,6 +154,7 @@ export default {
         age: this.age,
         address: this.address,
         work: this.work,
+        work1: this.work1,
         tell: this.urlname.oq,
         people: this.people,
         selected: this.selected,
@@ -179,12 +166,18 @@ export default {
 
       var element = document.documentElement;
       var bottom = element.scrollHeight - element.clientHeight;
-      scrollTo(0, bottom);
+      scrollTo({
+      top: bottom,
+      behavior: "smooth"
+    });
     },
-    autoscroll(){
+    automove(){
       var element = document.documentElement;
       var bottom = element.scrollHeight - element.clientHeight;
-      scrollTo(0, bottom);
+      scrollTo({
+      top: bottom,
+      behavior: "smooth"
+    });
     }
   },
 
@@ -217,4 +210,90 @@ export default {
 </script>
 
 <style>
+h2 {
+  text-align: center
+}
+/* .csa {
+  float:inherit
+} */
+p {
+  text-align: center;
+}
+
+.country {
+  width: 60%;
+  margin:0 auto;
+  text-align: center;
+} 
+
+.container {
+  display: table;
+  width: 80%;
+  table-layout: fixed;
+  margin: 0 auto;
+}
+
+.menu {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+.menu1{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.menu2{
+  text-align: center;
+  margin: 0 auto;
+}
+.area2 {
+  border: 1px solid #b4b3b3;
+  border-radius: 2px;
+  border-bottom: solid 4px #b4b4b4;
+  text-align: center;
+  width:60%;
+}
+
+.area1 {
+  display: block;
+  margin:0 auto;
+  width:60%;
+  border: 1px solid #b4b3b3;
+  border-radius: 2px;
+  border-bottom: solid 4px #b4b4b4;
+  text-align: center;
+}
+
+.btn-square-shadow {
+  width:150px;
+  border-radius: 20px;
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  background: #a4a4a4; /*ボタン色*/
+  color: #fff;
+  border-bottom: solid 4px #b4b4b4;
+}
+.btn-square-shadow:active {
+  /*ボタンを押したとき*/
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px); /*下に動く*/
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2); /*影を小さく*/
+  border-bottom: none;
+}
+
+.button_position{
+  display: block;
+  position: relative;
+  margin: 0 auto;
+}
+
+
+html {
+  background: #efefef;
+}
+
+
 </style>

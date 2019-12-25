@@ -1,8 +1,6 @@
 <template>
-  <div class="country">
-    <p>国籍:</p>
-    <div>
-      <select v-model="country">
+  <div class="selectWrap" >
+      <select class="select" v-model="country">
         <option value="">Country...</option>
         <option value="Afganistan">Afghanistan</option>
         <option value="Albania">Albania</option>
@@ -253,7 +251,6 @@
         <option value="Zimbabwe">Zimbabwe</option>
         </select>
     </div>
-  </div>
 </template>
 
 <script>
@@ -272,23 +269,33 @@ updated: function() {
 },
 
 }
-
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-/* h3 {
-  margin: 40px 0 0;
+
+<style >
+.selectWrap {
+  width: 100%;
+  position: relative;
+  display: block;
+  background-color:white;
+  margin:0 auto;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.select {
+  margin: 0 auto;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+  padding: 0 10px 0 10px;
+  border: 1px solid #b4b3b3;
+  border-radius: 2px;
+  border-bottom: solid 4px #b4b4b4;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-} */
+
+
 </style>

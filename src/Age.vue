@@ -1,9 +1,8 @@
 <template>
-  <div class="country">
-    <p>年齢:</p>
+  <div class="selectWrap">
     <div>
-      <select v-model="age">
-      <option value="">age...</option>
+      <select v-model="age" class="select">>
+      <option value="">Age...</option>
       <option value="0">0</option>
       <option value="1">1</option>
       <option value="2">2</option>
@@ -104,7 +103,7 @@
       <option value="97">97</option>
       <option value="98">98</option>
       <option value="99">99</option>
-      </select>歳
+      </select>
     </div>
   </div>
 </template>
@@ -125,5 +124,27 @@ updated: function() {
 },
 
 }
-
 </script>
+
+<style>
+.selectWrap {
+  width: 90%;
+  position: relative;
+  display: inline-block;
+}
+
+.select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+  padding: 0 40px 0 10px;
+  border: 1px solid #b4b3b3;
+  border-radius: 2px;
+  border-bottom: solid 4px #b4b4b4;
+}
+</style>
