@@ -1,6 +1,6 @@
 <template>
   <div class="selectWrap1">
-    <select class="select1" v-model="work1">
+    <select class="select1" v-model="work_select">
       <option value>type of industry...</option>
       <option value="広告/メディア">広告/メディア</option>
       <option value="販売">販売</option>
@@ -9,25 +9,25 @@
       <option value="介護">介護</option>
       <option value="その他(自由記述)" >その他(自由記述)</option>
     </select>
-    <input v-if="work1 === 'その他(自由記述)'" placeholder="自由記述欄" class="input1" v-model="work2" />
+    <input v-if="work_select === 'その他(自由記述)'" placeholder="自由記述欄" class="input1" v-model="work_write" />
   </div>
 </template>
 
 <script>
 export default {
-  name: "Work1",
+  name: "Work_type",
 
   data() {
     return {
-      work1: "",
-      work2: ""
+      work_select: "",
+      work_write: ""
     };
   },
 
   updated: function() {
     this.$emit(
       "input",
-      this.work1 === "その他(自由記述)" ? this.work2 : this.work1
+      this.work_select === "その他(自由記述)" ? this.work_write : this.work_select
       // ?はif文でも構成できる
     );
   }

@@ -30,7 +30,7 @@
       </div>
       <div class="menu1">
       <p>type of industry</p>
-        <work1 v-model="work1"/>
+        <worktype v-model="work_type"/>
       </div>
     
     </div>
@@ -44,7 +44,7 @@
     <br/>
   
     <button class="btn-square-shadow button_position" @click="completeCheck">complete</button>
-    <button class="btn-square-shadow button_position" @click="automove">move</button>
+    <button class="btn-square-shadow button_position" @click="gtime">gtime</button>
     
     <br/>
     <br/>
@@ -105,7 +105,7 @@ import country from "./Country";
 import agea from "./Age";
 import sex from "./Sex";
 import work from "./work";
-import work1 from "./work1";
+import worktype from "./work_type";
 
 export default {
   name: "Component",
@@ -114,7 +114,7 @@ export default {
     agea,
     sex,
     work,
-    work1
+    worktype
   },
   data() {
     return {
@@ -124,10 +124,11 @@ export default {
       selected: "",
       address: "都道府県から記述してください",
       work: "",
-      work1:"",
+      work_type:"",
       tell: "",
       people: "",
       name:"",
+      checkingtime:"",
       urlname:{
         q:"",
         oq:"",
@@ -148,18 +149,36 @@ export default {
       this.address = "";
     },
     completeCheck() {
+      if(this.country!=="" &&
+         this.urlname.q!=="" &&
+         this.age!=="" &&
+         this.address!=="" &&
+         this.selected!=="" &&
+         this.work!=="" &&
+         this.urlname.oq!=="" &&
+         this.urlname.r!==""
+         ){
+        var end;
+        end = new Date();
+        console.log(end)
+        var checkingtime = end.getTime();
+        this.checkingtime = checkingtime
+        console.log(this.checkingtime);
+        var date = Date(checkingtime);
+        console.log(date);
       post("http://localhost:3004/api/v1/", {
         country: this.country,
         name: this.urlname.q,
         age: this.age,
         address: this.address,
         work: this.work,
-        work1: this.work1,
+        work_type: this.work_type,
         tell: this.urlname.oq,
         people: this.people,
         selected: this.selected,
         reserve: this.urlname.r,
         hotel:this.urlname.tt,
+        checkingtime: this.checkingtime,
       }).then(res => {
         console.log(res);
       });
@@ -170,15 +189,17 @@ export default {
       top: bottom,
       behavior: "smooth"
     });
-    },
-    automove(){
-      var element = document.documentElement;
-      var bottom = element.scrollHeight - element.clientHeight;
-      scrollTo({
-      top: bottom,
-      behavior: "smooth"
-    });
     }
+    else{
+      confirm("項目を全て埋めてください(Please fill out this form)")
+    }},
+    gtime (){
+      var end;
+      end = new Date();
+      console.log(end)
+      var start = end.getTime();
+      console.log(start);
+    },
   },
 
   mounted() {
