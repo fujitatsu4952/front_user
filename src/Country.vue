@@ -2,6 +2,7 @@
   <div class="selectWrap" >
       <select class="select" v-model="country">
         <option value="">Country...</option>
+        <option value="Japan">日本</option>
         <option value="Afganistan">Afghanistan</option>
         <option value="Albania">Albania</option>
         <option value="Algeria">Algeria</option>
@@ -110,7 +111,6 @@
         <option value="Israel">Israel</option>
         <option value="Italy">Italy</option>
         <option value="Jamaica">Jamaica</option>
-        <option value="Japan">Japan</option>
         <option value="Jordan">Jordan</option>
         <option value="Kazakhstan">Kazakhstan</option>
         <option value="Kenya">Kenya</option>
@@ -256,18 +256,16 @@
 <script>
 export default {
   name: 'Country',
-  
 
-data() {
-    return {
-      country: "",
-    }
+  data() {
+      return {
+        country: "",
+      }
+    },
+
+  updated: function() {
+    this.$emit('input', this.country)
   },
-
-updated: function() {
-  this.$emit('input', this.country)
-},
-
 }
 </script>
 

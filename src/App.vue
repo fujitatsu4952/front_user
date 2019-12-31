@@ -1,51 +1,52 @@
 <template>
   <div>
     <h2>Check in form</h2>
+
     <div>
       <p>name</p>
-      <textarea class="area1" v-model="urlname.q">  </textarea>
+      <textarea class="name" v-model="urlname.q"></textarea>
     </div>
-    <div class ="menu2">
+
+    <div class ="tell-area">
       <p>tell</p>
-      <textarea class="area2" v-model="urlname.oq"/>
+      <textarea class="tell" v-model="urlname.oq"/>
     </div>
-      <div class="country">
-    <p>country</p>
-    <country v-model="country" />
+
+    <div class="country">
+      <p>country</p>
+      <Country v-model="country" />
+    </div>
+
+    <div class="contents-box">
+      <div class="content">
+        <p>sex</p>
+        <Sex v-model="selected" />
       </div>
-    <div class="container">
-      <div class="menu">
-    <p>sex</p>
-    <sex v-model="selected" />
-      </div>
-      <div class="menu">
-    <p>age</p>
-      <agea v-model="age" />
+      <div class="content">
+        <p>age</p>
+        <Age v-model="age" />
       </div>
     </div>
-    <div class="container"> 
-      <div class="menu1">
-      <p>your work </p>
-        <work v-model="work"/>
+
+    <div class="contents-box"> 
+      <div class="content-work">
+        <p>your work</p>
+        <WorkMain v-model="work"/>
       </div>
-      <div class="menu1">
-      <p>type of industry</p>
-        <worktype v-model="work_type"/>
+      <div class="content-work">
+        <p>type of industry</p>
+        <WorkType v-model="work_type"/>
       </div>
-    
     </div>
 
     <p>address</p>
     <div>
-      <textarea class="area1" v-on:mouseover="mouseover" v-model="address" rows="4" cols="40"></textarea>
+      <textarea class="address" v-on:mouseover="mouseover" v-model="address" rows="4" cols="40"></textarea>
     </div>
-    
-<!-- v-ifをつけているのはurlnameのなかを非同期で取りに行っているため、ない場合があるから。もし入っているのであれば挿入されるということを条件づけている。 -->
+
     <br/>
-  
-    <button class="btn-square-shadow button_position" @click="completeCheck">complete</button>
-    <button class="btn-square-shadow button_position" @click="gtime">gtime</button>
-    
+    <button class="btn-square" @click="completeCheck">complete</button>
+
     <br/>
     <br/>
     <br/>
@@ -87,40 +88,39 @@
     
 
     <div>
-      <p id="element">Q1,何を目的に来ましたか</p>
-      <select>
+      <p>Q1,何を目的に来ましたか</p>
+      <select class="question">
         <option>観光</option>
         <option>ビジネス</option>
         <option>帰省</option>
         <option>その他</option>
       </select>
     </div>
-    <button type="“button”" onclick="location.href='https://www.lngglobiz.com/'">complete</button>
+    <button type="button" class="btn-square" onclick="location.href='https://www.lngglobiz.com/'">complete</button>
   </div>
 </template>
 
 <script>
 import { callApi, post } from "./Api.js";
-import country from "./Country";
-import agea from "./Age";
-import sex from "./Sex";
-import work from "./work";
-import worktype from "./work_type";
+import Country from "./Country";
+import Age from "./Age";
+import Sex from "./Sex";
+import WorkMain from "./work";
+import WorkType from "./work_type";
 
 export default {
   name: "Component",
   components: {
-    country,
-    agea,
-    sex,
-    work,
-    worktype
+    Country,
+    Age,
+    Sex,
+    WorkMain,
+    WorkType
   },
   data() {
     return {
       country: "",
       age: "",
-      // countryとageには依然として不安が残っている。
       selected: "",
       address: "都道府県から記述してください",
       work: "",
@@ -149,6 +149,7 @@ export default {
       this.address = "";
     },
     completeCheck() {
+      //記述が全て完了していることを確かめるif文
       if(this.country!=="" &&
          this.urlname.q!=="" &&
          this.age!=="" &&
@@ -160,12 +161,10 @@ export default {
          ){
         var end;
         end = new Date();
-        console.log(end)
-        var checkingtime = end.getTime();
-        this.checkingtime = checkingtime
-        console.log(this.checkingtime);
+        var Complete_Time = end.getTime();
+        this.checkingtime = Complete_Time
         var date = Date(checkingtime);
-        console.log(date);
+        
       post("http://localhost:3004/api/v1/", {
         country: this.country,
         name: this.urlname.q,
@@ -182,24 +181,17 @@ export default {
       }).then(res => {
         console.log(res);
       });
-
+      //アンケート項目へ自動スクロールする
       var element = document.documentElement;
       var bottom = element.scrollHeight - element.clientHeight;
       scrollTo({
-      top: bottom,
-      behavior: "smooth"
-    });
+        top: bottom,
+        behavior: "smooth"
+      });
     }
     else{
       confirm("項目を全て埋めてください(Please fill out this form)")
     }},
-    gtime (){
-      var end;
-      end = new Date();
-      console.log(end)
-      var start = end.getTime();
-      console.log(start);
-    },
   },
 
   mounted() {
@@ -208,37 +200,54 @@ export default {
     });
     var url = window.location.href;
     console.log(url);
-    var decode1 = decodeURI(url);
-    console.log(decode1);
-    console.log(decode1);
-    decode1.split("?")[1].split("&");
-    console.log(decode1.split("?")[1].split("&"));
+    var decoded = decodeURI(url);
+    decoded.split("?")[1].split("&");
     const map = {};
-    console.log(map);
-    decode1
+    decoded
       .split("?")[1]
       .split("&")
       .forEach((autoform) => {
         const parsed = autoform.split('=');
         map[parsed[0]]= parsed[1];
       });
-    console.log(map);
-    console.log(map.q);
     this.urlname = map;
-
   }
 };
 </script>
 
 <style>
+html {
+  background: #efefef;
+}
+
 h2 {
   text-align: center
 }
-/* .csa {
-  float:inherit
-} */
+
 p {
   text-align: center;
+}
+
+.name {
+  display: block;
+  margin:0 auto;
+  width:60%;
+  border: 1px solid #b4b3b3;
+  border-radius: 2px;
+  border-bottom: solid 4px #b4b4b4;
+  text-align: center;
+}
+
+.tell-area {
+  text-align: center;
+  margin: 0 auto;
+  }
+  .tell {
+    border: 1px solid #b4b3b3;
+    border-radius: 2px;
+    border-bottom: solid 4px #b4b4b4;
+    text-align: center;
+    width:60%;
 }
 
 .country {
@@ -247,37 +256,24 @@ p {
   text-align: center;
 } 
 
-.container {
+.contents-box {
   display: table;
   width: 80%;
   table-layout: fixed;
   margin: 0 auto;
+  }
+  .content {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+  }
+  .content-work {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
 }
 
-.menu {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-}
-.menu1{
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-}
-
-.menu2{
-  text-align: center;
-  margin: 0 auto;
-}
-.area2 {
-  border: 1px solid #b4b3b3;
-  border-radius: 2px;
-  border-bottom: solid 4px #b4b4b4;
-  text-align: center;
-  width:60%;
-}
-
-.area1 {
+.address {
   display: block;
   margin:0 auto;
   width:60%;
@@ -287,17 +283,19 @@ p {
   text-align: center;
 }
 
-.btn-square-shadow {
+.btn-square {
   width:150px;
   border-radius: 20px;
-  display: inline-block;
+  display: block;
+  position: relative;
+  margin: 0 auto;
   padding: 0.5em 1em;
   text-decoration: none;
   background: #a4a4a4; /*ボタン色*/
   color: #fff;
   border-bottom: solid 4px #b4b4b4;
-}
-.btn-square-shadow:active {
+  }
+  .btn-square:active {
   /*ボタンを押したとき*/
   -webkit-transform: translateY(4px);
   transform: translateY(4px); /*下に動く*/
@@ -305,16 +303,10 @@ p {
   border-bottom: none;
 }
 
-.button_position{
-  display: block;
-  position: relative;
+.question {
   margin: 0 auto;
+  display: block;
+  border:solid 2px #b4b4b4;
 }
-
-
-html {
-  background: #efefef;
-}
-
 
 </style>

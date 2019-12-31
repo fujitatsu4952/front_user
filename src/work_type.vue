@@ -1,6 +1,6 @@
 <template>
-  <div class="selectWrap1">
-    <select class="select1" v-model="work_select">
+  <div class="selectWrap">
+    <select class="select" v-model="work_select">
       <option value>type of industry...</option>
       <option value="広告/メディア">広告/メディア</option>
       <option value="販売">販売</option>
@@ -9,7 +9,7 @@
       <option value="介護">介護</option>
       <option value="その他(自由記述)" >その他(自由記述)</option>
     </select>
-    <input v-if="work_select === 'その他(自由記述)'" placeholder="自由記述欄" class="input1" v-model="work_write" />
+    <input v-if="work_select === 'その他(自由記述)'" placeholder="自由記述欄" class="input" v-model="work_write" />
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
   updated: function() {
     this.$emit(
       "input",
-      this.work_select === "その他(自由記述)" ? this.work_write : this.work_select
+      this.work_select === "その他(自由記述)" ? this.work_write : this.work_select,
       // ?はif文でも構成できる
     );
   }
@@ -35,13 +35,13 @@ export default {
 </script>
 
 <style>
-.selectWrap1 {
+.selectWrap {
   width: 100%;
   position: relative;
   display: inline-block;
 }
 
-.select1 {
+.select {
   display: block;
   margin: 0 auto;
   -webkit-appearance: none;
@@ -59,7 +59,7 @@ export default {
   background-color: white;
 }
 
-.input1 {
+.input {
   display: block;
   border: 1px solid #b4b3b3;
   border-radius: 2px;
