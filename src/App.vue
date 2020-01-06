@@ -4,12 +4,12 @@
 
     <div>
       <p>name</p>
-      <textarea class="name" v-model="urlname.q"></textarea>
+      <textarea class="name" v-model="url.q"></textarea>
     </div>
 
     <div class ="tell-area">
       <p>tell</p>
-      <textarea class="tell" v-model="urlname.oq"/>
+      <textarea class="tell" v-model="url.oq"/>
     </div>
 
     <div class="country">
@@ -129,7 +129,7 @@ export default {
       people: "",
       name:"",
       checkingtime:"",
-      urlname:{
+      url:{
         q:"",
         oq:"",
         r:"",
@@ -151,13 +151,13 @@ export default {
     completeCheck() {
       //記述が全て完了していることを確かめるif文
       if(this.country!=="" &&
-         this.urlname.q!=="" &&
+         this.url.q!=="" &&
          this.age!=="" &&
          this.address!=="" &&
          this.selected!=="" &&
          this.work!=="" &&
-         this.urlname.oq!=="" &&
-         this.urlname.r!==""
+         this.url.oq!=="" &&
+         this.url.r!==""
          ){
         var end;
         end = new Date();
@@ -167,16 +167,16 @@ export default {
         
       post("http://localhost:3004/api/v1/", {
         country: this.country,
-        name: this.urlname.q,
+        name: this.url.q,
         age: this.age,
         address: this.address,
         work: this.work,
         work_type: this.work_type,
-        tell: this.urlname.oq,
+        tell: this.url.oq,
         people: this.people,
         selected: this.selected,
-        reserve: this.urlname.r,
-        hotel:this.urlname.tt,
+        reserve: this.url.r,
+        hotel:this.url.tt,
         checkingtime: this.checkingtime,
       }).then(res => {
         console.log(res);
