@@ -4,12 +4,12 @@
 
     <div>
       <p>name</p>
-      <textarea class="name" v-model="url.q"></textarea>
+      <textarea class="name" v-model="url.name"></textarea>
     </div>
 
     <div class ="tell-area">
       <p>tell</p>
-      <textarea class="tell" v-model="url.oq"/>
+      <textarea class="tell" v-model="url.tell"/>
     </div>
 
     <div class="country">
@@ -130,10 +130,10 @@ export default {
       name:"",
       checkingtime:"",
       url:{
-        q:"",
-        oq:"",
-        r:"",
-        tt:"",
+        name:"",
+        tell:"",
+        reserve:"",
+        hotel:"",
       },
       // 連想配列のキーに連想配列を与えている
     };
@@ -151,13 +151,13 @@ export default {
     completeCheck() {
       //記述が全て完了していることを確かめるif文
       if(this.country!=="" &&
-         this.url.q!=="" &&
+         this.url.name!=="" &&
          this.age!=="" &&
          this.address!=="" &&
          this.selected!=="" &&
          this.work!=="" &&
-         this.url.oq!=="" &&
-         this.url.r!==""
+         this.url.tell!=="" &&
+         this.url.reserve!==""
          ){
         var end;
         end = new Date();
@@ -167,16 +167,16 @@ export default {
         
       post("http://localhost:3004/api/v1/", {
         country: this.country,
-        name: this.url.q,
+        name: this.url.name,
         age: this.age,
         address: this.address,
         work: this.work,
         work_type: this.work_type,
-        tell: this.url.oq,
+        tell: this.url.tell,
         people: this.people,
         selected: this.selected,
-        reserve: this.url.r,
-        hotel:this.url.tt,
+        reserve: this.url.reserve,
+        hotel:this.url.hotel,
         checkingtime: this.checkingtime,
       }).then(res => {
         console.log(res);
@@ -210,7 +210,7 @@ export default {
         const parsed = autoform.split('=');
         map[parsed[0]]= parsed[1];
       });
-    this.urlname = map;
+    this.url = map;
   }
 };
 </script>
