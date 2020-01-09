@@ -195,7 +195,7 @@ export default {
   },
 
   mounted() {
-    callApi("http://localhost:3004/api/v1/").then(data => {
+    callApi("http://localhost:3005/api/v1/").then(data => {
       console.log(JSON.stringify(data.data));
     });
     var url = window.location.href;
