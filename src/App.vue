@@ -102,11 +102,11 @@
 
 <script>
 import { callApi, post } from "./Api.js";
-import Country from "./Country";
-import Age from "./Age";
-import Sex from "./Sex";
-import WorkMain from "./work";
-import WorkType from "./work_type";
+import Country from "./components/Country";
+import Age from "./components/Age";
+import Sex from "./components/Sex";
+import WorkMain from "./components/work";
+import WorkType from "./components/work_type";
 
 export default {
   name: "Component",
