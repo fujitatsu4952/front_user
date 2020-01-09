@@ -1,5 +1,5 @@
 <template>
-  <div class="selectWrap" >
+  <div  >
       <select class="select" v-model="country">
         <option value="">Country...</option>
         <option value="Japan">日本</option>
@@ -271,13 +271,6 @@ export default {
 
 
 <style >
-.selectWrap {
-  width: 100%;
-  position: relative;
-  display: block;
-  background-color:white;
-  margin:0 auto;
-}
 
 .select {
   margin: 0 auto;
