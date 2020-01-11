@@ -1,0 +1,5 @@
+input:focus::placeholder,
+textarea:focus::placeholder {
+    color: transparent;
+    transition: .1s;
+}

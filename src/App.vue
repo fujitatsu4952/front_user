@@ -41,7 +41,7 @@
 
     <p>address</p>
     <div>
-      <textarea class="address" v-on:mouseover="mouseover" v-model="address" rows="4" cols="40"></textarea>
+      <textarea class="address" placeholder="都道府県から記述ください" v-model="address" rows="4" cols="40"></textarea>
     </div>
 
     <br/>
@@ -122,7 +122,7 @@ export default {
       country: "",
       age: "",
       selected: "",
-      address: "都道府県から記述してください",
+      address: "",
       work: "",
       work_type:"",
       tell: "",
@@ -145,9 +145,6 @@ export default {
     callApi(url) {
       Api.callApi(url, this.setInfo);
     },
-    mouseover() {
-      this.address = "";
-    },
     completeCheck() {
       //記述が全て完了していることを確かめるif文
       if(this.country!=="" &&
@@ -163,9 +160,9 @@ export default {
         end = new Date();
         var Complete_Time = end.getTime();
         this.checkingtime = Complete_Time
-        var date = Date(checkingtime);
+        var date = Date(this.checkingtime);
         
-      post("http://localhost:3004/api/v1/", {
+      post("http://localhost:3005/api/v1/checkin", {
         country: this.country,
         name: this.url.name,
         age: this.age,
@@ -174,7 +171,7 @@ export default {
         work_type: this.work_type,
         tell: this.url.tell,
         people: this.people,
-        selected: this.selected,
+        sex: this.selected,
         reserve: this.url.reserve,
         hotel:this.url.hotel,
         checkingtime: this.checkingtime,
