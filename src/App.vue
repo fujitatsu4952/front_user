@@ -20,7 +20,7 @@
     <div class="contents-box">
       <div class="content">
         <p>sex</p>
-        <Sex v-model="selected" />
+        <Sex v-model="sex" />
       </div>
       <div class="content">
         <p>age</p>
@@ -121,7 +121,7 @@ export default {
     return {
       country: "",
       age: "",
-      selected: "",
+      sex: "",
       address: "",
       work: "",
       work_type:"",
@@ -151,7 +151,7 @@ export default {
          this.url.name!=="" &&
          this.age!=="" &&
          this.address!=="" &&
-         this.selected!=="" &&
+         this.sex!=="" &&
          this.work!=="" &&
          this.url.tell!=="" &&
          this.url.reserve!==""
@@ -171,7 +171,7 @@ export default {
         work_type: this.work_type,
         tell: this.url.tell,
         people: this.people,
-        sex: this.selected,
+        sex: this.sex,
         reserve: this.url.reserve,
         hotel:this.url.hotel,
         checkingtime: this.checkingtime,
