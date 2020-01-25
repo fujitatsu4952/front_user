@@ -1,30 +1,29 @@
 <template>
-<div class="selectWrap">
-      <select class="select" v-model="selected">
-        <option value="">Sex...</option>
-        <option>男性</option>
-        <option>女性</option>
-        <option>その他</option>
-        <option>回答しない</option>
-      </select>
-    </div>
+  <div class="selectWrap">
+    <select class="select" v-model="selected">
+      <option value>性別...</option>
+      <option value="男性">男性</option>
+      <option value="女性">女性</option>
+      <option value="その他">その他</option>
+      <option value="回答しない">回答しない</option>
+    </select>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'Sex',
+  name: "Sex",
 
-data() {
+  data() {
     return {
-      selected: "",
-    }
+      selected: ""
+    };
   },
 
-updated: function() {
-  this.$emit('input', this.selected)
-},
-
-}
+  updated: function() {
+    this.$emit("input", this.selected);
+  }
+};
 </script>
 
 <style>
@@ -48,6 +47,4 @@ updated: function() {
   border-radius: 2px;
   border-bottom: solid 4px #b4b4b4;
 }
-
-
 </style>

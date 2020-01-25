@@ -7,10 +7,6 @@ export function callApi(url, callback) {
     })
 }
 
-
 export function post(url, data) {
-  return axios.post(
-    url, {
-      ...data
-    })
+  return axios.post(url, data)
 }

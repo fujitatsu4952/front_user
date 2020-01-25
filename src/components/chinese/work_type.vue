@@ -1,15 +1,20 @@
 <template>
   <div class="selectWrap">
     <select class="select" v-model="work_select">
-      <option value>type of industry...</option>
-      <option value="広告/メディア">広告/メディア</option>
-      <option value="販売">販売</option>
-      <option value="飲食">飲食</option>
-      <option value="不動産">不動産</option>
-      <option value="介護">介護</option>
-      <option value="その他(自由記述)" >その他(自由記述)</option>
+      <option value>什么样的工作...</option>
+      <option value="広告/メディア">广告/媒体</option>
+      <option value="販売">销售</option>
+      <option value="飲食">饮食</option>
+      <option value="不動産">不动产</option>
+      <option value="介護">护理</option>
+      <option value="その他(自由記述)">其他(请描述)</option>
     </select>
-    <input v-if="work_select === 'その他(自由記述)'" placeholder="自由記述欄" class="input" v-model="work_write" />
+    <input
+      v-if="work_select === 'その他(自由記述)'"
+      placeholder="自由記述欄"
+      class="input"
+      v-model="work_write"
+    />
   </div>
 </template>
 
@@ -27,7 +32,9 @@ export default {
   updated: function() {
     this.$emit(
       "input",
-      this.work_select === "その他(自由記述)" ? this.work_write : this.work_select,
+      this.work_select === "その他(自由記述)"
+        ? this.work_write
+        : this.work_select
       // ?はif文でも構成できる
     );
   }
