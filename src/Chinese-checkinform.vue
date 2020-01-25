@@ -46,7 +46,7 @@
     </div>
 
     <br />
-    <button class="btn-square" @click="CompleteCheck">complete</button>
+    <button class="btn-square" @click="CompleteCheck">完成</button>
 
     <div id="spase"></div>
 

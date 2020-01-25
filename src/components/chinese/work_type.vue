@@ -11,7 +11,7 @@
     </select>
     <input
       v-if="work_select === 'その他(自由記述)'"
-      placeholder="自由記述欄"
+      placeholder="自由文本字段"
       class="input"
       v-model="work_write"
     />

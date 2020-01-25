@@ -4,7 +4,7 @@
       <option value>国籍...</option>
       <option value="China">中華人民共和国</option>
       <option value="Taiwan">台湾</option>
-      <option value="Monaco">澳门</option>
+      <option value="Macau">澳门</option>
       <option value="Korea North">大韓民国</option>
       <option value="Korea Sout">北朝鮮</option>
       <option value="Japan">日本</option>
@@ -130,7 +130,7 @@
       <option value="Liechtenstein">Liechtenstein</option>
       <option value="Lithuania">Lithuania</option>
       <option value="Luxembourg">Luxembourg</option>
-      <option value="Macau">Macau</option>
+      <option value="Monaco">Monaco</option>
       <option value="Macedonia">Macedonia</option>
       <option value="Madagascar">Madagascar</option>
       <option value="Malaysia">Malaysia</option>
