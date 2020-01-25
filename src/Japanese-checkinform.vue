@@ -40,12 +40,14 @@
       </div>
     </div>
 
+    <p>郵便番号</p>
+    <input v-model="postalCode" class="post"/>
     <p>住所</p>
     <div>
       <Address placeholder="都道府県から記述ください" v-model="address"></Address>
     </div>
 
-    <br />
+    <br/>
     <button class="btn-square" @click="CompleteCheck">完了</button>
 
     <div id="spase"></div>
@@ -102,6 +104,7 @@ export default {
       people: "",
       name: "",
       checkingtime: "",
+      postalCode: "",
       url: {
         name: "",
         tell: "",
@@ -163,7 +166,17 @@ export default {
       }
     }
   },
-
+  watch: {
+    postalCode: async function() {
+      if (`${this.postalCode}`.length === 7) {
+        const data = await callApi(
+          `https://api.zipaddress.net/?zipcode=${this.postalCode}`
+        );
+        this.address = data.data.data.fullAddress;
+        console.log(this.address);
+      }
+    }
+  },
   mounted() {
     callApi("http://localhost:3005/api/v1/").then(data => {
       console.log(JSON.stringify(data.data));
@@ -280,6 +293,16 @@ p {
   margin: 0 auto;
   display: block;
   border: solid 2px #b4b4b4;
+}
+
+.post{
+  margin: 0 auto;
+  display: block;
+  width: 60%;
+  border: 1px solid #b4b3b3;
+  border-radius: 2px;
+  border-bottom: solid 4px #b4b4b4;
+  text-align: center;
 }
 
 #spase {
