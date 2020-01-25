@@ -41,13 +41,13 @@
     </div>
 
     <p>郵便番号</p>
-    <input v-model="postalCode" class="post"/>
+    <input v-model="postalCode" class="post" />
     <p>住所</p>
     <div>
       <Address placeholder="都道府県から記述ください" v-model="address"></Address>
     </div>
 
-    <br/>
+    <br />
     <button class="btn-square" @click="CompleteCheck">完了</button>
 
     <div id="spase"></div>
@@ -295,7 +295,7 @@ p {
   border: solid 2px #b4b4b4;
 }
 
-.post{
+.post {
   margin: 0 auto;
   display: block;
   width: 60%;
