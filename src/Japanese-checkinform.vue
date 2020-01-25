@@ -42,7 +42,7 @@
 
     <p>郵便番号</p>
     <input v-model="postalCode" class="post" />
-    <p>住所</p>
+    <p>ご住所</p>
     <div>
       <Address placeholder="都道府県から記述ください" v-model="address"></Address>
     </div>

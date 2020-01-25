@@ -42,7 +42,7 @@
 
     <p>address</p>
     <div>
-      <Address placeholder="都道府県から記述ください" v-model="address"></Address>
+      <Address v-model="address"></Address>
     </div>
 
     <br />
