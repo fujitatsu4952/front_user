@@ -64,7 +64,7 @@
         :address="address"
       ></Question>
     </div>
-    <!-- <button type="button" class="btn-square" @click="CompleteQuestion">complete</button> -->
+    
   </div>
 </template>
 

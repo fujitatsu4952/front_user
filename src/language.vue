@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="language">
-      <div class="language" @click="japan">和文/</div>
+      <div class="language" @click="japanese">和文/</div>
       <div class="language" @click="english">English/</div>
       <div class="language" @click="chinese">中文/</div>
     </div>
@@ -18,7 +18,7 @@ export default {
   },
 
   methods: {
-    japan() {
+    japanese() {
       this.$router.push("/qrcode/japanese/?" + `${this.kept}`);
     },
     english() {

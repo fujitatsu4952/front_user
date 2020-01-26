@@ -23,6 +23,6 @@ export default {
 #center {
   text-align: center;
   margin: 0 auto;
-  margin-top: 100%;
+  margin-top: 80%;
 }
 </style>

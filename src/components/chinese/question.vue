@@ -2,7 +2,7 @@
   <div>
     <div>
       <ul>
-        <span class="Questions" v-for="(question, idx) in selectLanguage(questions)" :key="idx">
+        <span class="Questions" v-for="(question, idx) in selectChinese(questions)" :key="idx">
           <!-- 空の質問の処理 -->
           <div v-if='question.content===""'></div>
           <!-- 記述式 -->
@@ -12,10 +12,10 @@
               rows="3"
               placeholder="免费说明"
               class="QuestionInput"
-              v-model="selectLanguage(questions)[idx].write"
+              v-model="selectChinese(questions)[idx].write"
             />
           </div>
-          <!-- 複数選択 -->
+          <!-- 複数選択式 -->
           <div v-else-if="question.type==='SelectMulti'">
             <li class="menu">{{ question.content }}</li>
             <div
@@ -26,14 +26,14 @@
               <input
                 :id="`${question.Question_ID}${option}`"
                 type="checkbox"
-                :value="getValue(question.Question_ID, idxOption)"
-                v-model="selectLanguage(questions)[idx].write"
+                :value="getJapaneseOption(question.Question_ID, idxOption)"
+                v-model="selectChinese(questions)[idx].write"
               />
               <label class="checkbox" :for="`${question.Question_ID}${option}`">{{option}}</label>
             </div>
           </div>
           <!-- 選択+記述式 -->
-          <div class="cp_ipradio" v-else-if="question.type==='SelectAndText'">
+          <div v-else-if="question.type==='SelectAndText'">
             <li class="menu">{{ question.content }}</li>
             <div
               class="QuestionOption"
@@ -43,8 +43,8 @@
               <input
                 :id="`${question.Question_ID}${option}`"
                 type="radio"
-                :value="getValue(question.Question_ID, idxOption)"
-                v-model="selectLanguage(questions)[idx].write"
+                :value="getJapaneseOption(question.Question_ID, idxOption)"
+                v-model="selectChinese(questions)[idx].write"
               />
               <label class="radio" :for="`${question.Question_ID}${option}`">{{option}}</label>
             </div>
@@ -52,23 +52,23 @@
               rows="3"
               placeholder="免费说明"
               class="QuestionInput"
-              v-if="selectLanguage(questions)[idx].write === 'その他(自由記述)'"
-              v-model="selectLanguage(questions)[idx].free"
+              v-if="selectChinese(questions)[idx].write === 'その他(自由記述)'"
+              v-model="selectChinese(questions)[idx].free"
             />
           </div>
           <!-- 選択式 -->
-          <div class="cp_ipradio" v-else>
+          <div v-else>
             <li class="menu">{{ question.content }}</li>
             <div v-for="(option, idxOption) in getOptionList(question)" :key="idxOption">
               <input
-                :id="`${question.Question_ID}${getValue(question.Question_ID, idxOption)}`"
+                :id="`${question.Question_ID}${getJapaneseOption(question.Question_ID, idxOption)}`"
                 type="radio"
-                :value="getValue(question.Question_ID, idxOption)"
-                v-model="selectLanguage(questions)[idx].write"
+                :value="getJapaneseOption(question.Question_ID, idxOption)"
+                v-model="selectChinese(questions)[idx].write"
               />
               <label
                 class="radio"
-                :for="`${question.Question_ID}${getValue(question.Question_ID, idxOption)}`"
+                :for="`${question.Question_ID}${getJapaneseOption(question.Question_ID, idxOption)}`"
               >{{option}}</label>
             </div>
           </div>
@@ -76,7 +76,7 @@
       </ul>
 
       <br />
-      <button class="btn-square" @click="pospos">提交</button>
+      <button class="btn-square" @click="submitQuestion">提交</button>
     </div>
   </div>
 </template>
@@ -108,17 +108,17 @@ export default {
     };
   },
   methods: {
-    getValue(questionID, idx) {
+    getJapaneseOption(questionID, idx) {
       return this.questions.find(
         item => item.Question_ID === questionID && item.language === "JP"
       )[`OPTION${idx + 1}`];
     },
-    getContentValue(questionID) {
+    getJapaneseContent(questionID) {
       return this.questions.find(
         item => item.Question_ID === questionID && item.language === "JP"
       )["content"];
     },
-    selectLanguage(array) {
+    selectChinese(array) {
       return array.filter(key => key.language === "CN");
     },
 
@@ -129,7 +129,7 @@ export default {
         .map(key => obj[key]);
     },
 
-    pospos() {
+    submitQuestion() {
       const form = new FormData();
       form.append("タイムスタンプ", this.getTimeStatement(this.checktime));
       form.append("お名前", this.name);
@@ -141,18 +141,18 @@ export default {
       form.append("お電話番号", this.tell);
       form.append("ご住所", this.address);
       form.append("回答の言語", "中国語");
-      this.selectLanguage(this.questions).forEach(item => {
+      this.selectChinese(this.questions).forEach(item => {
         if (item.write === "その他(自由記述)") {
-          form.append(this.getContentValue(item.Question_ID), item.free);
+          form.append(this.getJapaneseContent(item.Question_ID), item.free);
         } else {
           if (typeof item.write === "string") {
             form.append(
-              this.getContentValue(item.Question_ID),
+              this.getJapaneseContent(item.Question_ID),
               item.write || "無回答"
             );
           } else if (typeof item.write === "object") {
             form.append(
-              this.getContentValue(item.Question_ID),
+              this.getJapaneseContent(item.Question_ID),
               item.write.length ? item.write : "無回答"
             );
           }

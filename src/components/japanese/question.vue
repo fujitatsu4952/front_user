@@ -2,7 +2,7 @@
   <div>
     <div>
       <ul>
-        <span class="Questions" v-for="(question, idx) in selectLanguage(questions)" :key="idx">
+        <span class="Questions" v-for="(question, idx) in selectJapanese(questions)" :key="idx">
           <!-- 空の質問の処理 -->
           <div v-if='question.content===""'></div>
           <!-- 記述式 -->
@@ -12,7 +12,7 @@
               rows="3"
               placeholder="ごちらにご記入ください"
               class="QuestionInput"
-              v-model="selectLanguage(questions)[idx].write"
+              v-model="selectJapanese(questions)[idx].write"
             />
           </div>
           <!-- 複数選択 -->
@@ -27,7 +27,7 @@
                 :id="`${question.Question_ID}${option}`"
                 type="checkbox"
                 :value="option"
-                v-model="selectLanguage(questions)[idx].write"
+                v-model="selectJapanese(questions)[idx].write"
               />
               <label class="checkbox" :for="`${question.Question_ID}${option}`">{{option}}</label>
             </div>
@@ -44,7 +44,7 @@
                 :id="`${question.Question_ID}${option}`"
                 type="radio"
                 :value="option"
-                v-model="selectLanguage(questions)[idx].write"
+                v-model="selectJapanese(questions)[idx].write"
               />
               <label class="radio" :for="`${question.Question_ID}${option}`">{{option}}</label>
             </div>
@@ -52,8 +52,8 @@
               rows="3"
               placeholder="ごちらにご記入ください"
               class="QuestionInput"
-              v-if="selectLanguage(questions)[idx].write === 'その他(自由記述)'"
-              v-model="selectLanguage(questions)[idx].free"
+              v-if="selectJapanese(questions)[idx].write === 'その他(自由記述)'"
+              v-model="selectJapanese(questions)[idx].free"
             />
           </div>
           <!-- 選択式 -->
@@ -61,21 +61,21 @@
             <li class="menu">{{ question.content }}</li>
             <div v-for="(option, idxOption) in getOptionList(question)" :key="option">
               <input
-                :id="`${question.Question_ID}${getValue(question.Question_ID, idxOption)}`"
+                :id="`${question.Question_ID}${getJapaneseOption(question.Question_ID, idxOption)}`"
                 type="radio"
-                :value="getValue(question.Question_ID, idxOption)"
-                v-model="selectLanguage(questions)[idx].write"
+                :value="getJapaneseOption(question.Question_ID, idxOption)"
+                v-model="selectJapanese(questions)[idx].write"
               />
               <label
                 class="radio"
-                :for="`${question.Question_ID}${getValue(question.Question_ID, idxOption)}`"
+                :for="`${question.Question_ID}${getJapaneseOption(question.Question_ID, idxOption)}`"
               >{{option}}</label>
             </div>
           </div>
         </span>
       </ul>
       <br/>
-      <button class="btn-square" @click="pospos">送信</button>
+      <button class="btn-square" @click="submitQuestion">送信</button>
     </div>
   </div>
 </template>
@@ -107,12 +107,12 @@ export default {
     };
   },
   methods: {
-    getValue(questionID, idx) {
+    getJapaneseOption(questionID, idx) {
       return this.questions.find(
         item => item.Question_ID === questionID && item.language === "JP"
       )[`OPTION${idx + 1}`];
     },
-    selectLanguage(array) {
+    selectJapanese(array) {
       return array.filter(key => key.language === "JP");
     },
 
@@ -123,7 +123,7 @@ export default {
         .map(key => obj[key]);
     },
 
-    pospos() {
+    submitQuestion() {
       const form = new FormData();
       form.append("タイムスタンプ", this.getTimeStatement(this.checktime));
       form.append("お名前", this.name);
@@ -135,7 +135,7 @@ export default {
       form.append("お電話番号", this.tell);
       form.append("ご住所", this.address);
       form.append("回答の言語", "日本語");
-      this.selectLanguage(this.questions).forEach(item => {
+      this.selectJapanese(this.questions).forEach(item => {
         if (item.write === "その他(自由記述)") {
           form.append(item.content, item.free || "無回答");
         } else {
