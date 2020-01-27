@@ -50,7 +50,7 @@
             </div>
             <textarea
               rows="3"
-              placeholder="免费说明"
+              placeholder="自由填写栏"
               class="QuestionInput"
               v-if="selectChinese(questions)[idx].write === 'その他(自由記述)'"
               v-model="selectChinese(questions)[idx].free"

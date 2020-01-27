@@ -1,10 +1,10 @@
 <template>
   <div>
     <Language></Language>
-    <h2>入住办理</h2>
+    <h2>入住手续表格</h2>
 
     <div>
-      <p>名字</p>
+      <p>姓名</p>
       <textarea class="name" v-model="url.name"></textarea>
     </div>
 
@@ -51,7 +51,7 @@
     <div id="spase"></div>
 
     <div>
-      <p id="target">请填写问题</p>
+      <p id="target">请填写问卷</p>
       <Question
         :checktime="checkingtime"
         :name="url.name"
@@ -64,7 +64,7 @@
         :address="address"
       ></Question>
     </div>
-    
+
   </div>
 </template>
 
@@ -159,7 +159,7 @@ export default {
           behavior: "smooth"
         });
       } else {
-        confirm("请全部填写此表格");
+        confirm("请把表格全部填完");
       }
     }
   },
